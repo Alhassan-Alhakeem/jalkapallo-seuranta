@@ -1,177 +1,270 @@
-# Joukkueen otteluseuranta – Testaus ja validointi
-
----
-
-## Vaihe 6: Testaus
-
-### Testauksen tavoite
-
-Testauksen tarkoitus on varmistaa, että sovellus toimii määriteltyjen toiminnallisten ja ei-toiminnallisten vaatimusten mukaisesti.
-
----
-
-### Toiminnalliset testit
-
-#### T1 – Ottelun lisääminen
-
-**Vaatimus:** Käyttäjä voi lisätä ottelun (vastustaja, päivä, tulos, maalintekijät)
-
-| Askel | Toiminto | Odotettu tulos | Tulos |
-|-------|----------|----------------|-------|
-| 1 | Avaa "Kirjaa ottelu" -välilehti | Lomake aukeaa | ✅ |
-| 2 | Syötä vastustaja, päivä, tulos | Kentät täyttyvät | ✅ |
-| 3 | Lisää maalintekijä napilla | Uusi rivi ilmestyy | ✅ |
-| 4 | Paina "Tallenna" | Ottelu tallentuu ja siirtyy Kausi-näkymään | ✅ |
-
----
-
-#### T2 – Ottelun muokkaaminen
-
-**Vaatimus:** Käyttäjä voi muokata tallennettua ottelua
-
-| Askel | Toiminto | Odotettu tulos | Tulos |
-|-------|----------|----------------|-------|
-| 1 | Paina "Muokkaa" ottelun kohdalla | Lomake täyttyy vanhoilla tiedoilla | ✅ |
-| 2 | Muuta tulos tai maalintekijä | Kenttä päivittyy | ✅ |
-| 3 | Paina "Tallenna" | Muutos näkyy ottelulistassa | ✅ |
-
----
-
-#### T3 – Ottelun poistaminen
-
-**Vaatimus:** Käyttäjä voi poistaa ottelun
-
-| Askel | Toiminto | Odotettu tulos | Tulos |
-|-------|----------|----------------|-------|
-| 1 | Paina "Poista" ottelun kohdalla | Ottelu häviää listalta | ✅ |
-| 2 | Tarkista kauden yhteenveto | Tilastot päivittyvät | ✅ |
-
----
-
-#### T4 – Otteluiden listaus
-
-**Vaatimus:** Käyttäjä näkee listan kaikista otteluista
-
-| Askel | Toiminto | Odotettu tulos | Tulos |
-|-------|----------|----------------|-------|
-| 1 | Avaa "Kausi"-välilehti | Lista näkyy uusimmasta vanhimpaan | ✅ |
-| 2 | Tarkista värikoodaus | Voitto = vihreä, tasapeli = keltainen, häviö = punainen | ✅ |
-
----
-
-#### T5 – Kauden yhteenveto
-
-**Vaatimus:** Käyttäjä näkee voitot, tasapelit, häviöt ja maalieron
-
-| Askel | Toiminto | Odotettu tulos | Tulos |
-|-------|----------|----------------|-------|
-| 1 | Lisää 3 ottelua: voitto 3-1, tasapeli 2-2, häviö 0-2 | Tallennetaan | ✅ |
-| 2 | Tarkista yhteenveto | V:1, T:1, H:1, Maalit: 5-5 | ✅ |
-
----
-
-#### T6 – Maalintekijätilasto
-
-**Vaatimus:** Käyttäjä näkee tilastot maalimäärän mukaan järjestettynä
-
-| Askel | Toiminto | Odotettu tulos | Tulos |
-|-------|----------|----------------|-------|
-| 1 | Avaa "Tilastot"-välilehti | Maalintekijälista näkyy | ✅ |
-| 2 | Tarkista järjestys | Eniten maaleja tehnyt on ensimmäisenä | ✅ |
-| 3 | Tee uusi maalinkirjaus samalle pelaajalle | Kokonaissumma päivittyy | ✅ |
-
----
-
-### Virhetilanteiden testit
-
-#### V1 – Tyhjä lomake
-
-| Tilanne | Odotettu tulos | Tulos |
-|---------|----------------|-------|
-| Tallennetaan ilman vastustajan nimeä | Virheilmoitus: "Syötä vastustajan nimi." | ✅ |
-| Tallennetaan ilman päivämäärää | Virheilmoitus: "Valitse päivämäärä." | ✅ |
-
-#### V2 – Ei otteluita
-
-| Tilanne | Odotettu tulos | Tulos |
-|---------|----------------|-------|
-| Kausi-näkymä ilman otteluita | Teksti: "Ei otteluita vielä." | ✅ |
-| Tilastot ilman maalintekijöitä | Teksti: "Ei maalintekijätietoja vielä." | ✅ |
-
----
-
-### Ei-toiminnalliset testit
-
-| Vaatimus | Testi | Tulos |
-|----------|-------|-------|
-| Toimii selaimessa | Avattiin Chrome, Firefox, Safari | ✅ |
-| Toimii mobiilissa | Testattu mobiilikoossa (375px leveys) | ✅ |
-| Tiedot tallentuvat | Sivu päivitetty – tiedot säilyivät | ✅ |
-| Virheilmoitukset näkyvät selkeästi | Punainen teksti lomakkeen alla | ✅ |
-
----
-
-### Yhteenveto testauksesta
-
-Kaikki 6 toiminnallista vaatimusta testattiin ja läpäisivät testit. Virhetilanteet käsitellään oikein. Sovellus toimii selaimessa ja mobiilissa ilman ongelmia.
-
----
-
-## Vaihe 7: Validointi
-
-### Validoinnin tavoite
-
-Validoinnissa arvioidaan, ratkaisiko toteutus alkuperäisen ongelman ja tukeeko se käyttäjän todellisia tarpeita.
-
----
-
-### Alkuperäinen ongelma
-
-Harrastejalkapalloilijat seuraavat joukkueensa tuloksia hajallaan – WhatsApp-viesteistä, muistista tai taulukoista. Kauden tilastoja ei koota yhteen paikkaan.
-
-### Vastattiinko ongelmaan?
-
-**Kyllä.** Sovellus tarjoaa yhden selkeän paikan, jonne käyttäjä voi kirjata ottelut ja nähdä kauden tilanteen yhdellä silmäyksellä. Maalintekijätilasto kokoaa tiedon, jota ei aiemmin ollut helposti saatavilla.
-
----
-
-### Käyttäjätarpeiden täyttyminen
-
-| Käyttäjäskenaario | Täyttyikö? | Huomio |
-|-------------------|------------|--------|
-| Ottelun kirjaaminen ottelun jälkeen | ✅ Kyllä | Nopea, alle minuutin toimenpide |
-| Kauden tilanteen tarkistaminen | ✅ Kyllä | Yhteenveto näkyy heti etusivulla |
-| Virheellisen tuloksen korjaaminen | ✅ Kyllä | Muokkaus onnistuu suoraan listalta |
-
----
-
-### Vaatimusten täyttyminen
-
-| Vaatimus | Täyttyi? |
-|----------|----------|
-| Ottelun lisääminen | ✅ |
-| Ottelun muokkaaminen | ✅ |
-| Ottelun poistaminen | ✅ |
-| Otteluiden listaus | ✅ |
-| Kauden yhteenveto | ✅ |
-| Maalintekijätilasto | ✅ |
-| Toimii selaimessa | ✅ |
-| Mobiiliystävällinen | ✅ |
-| Virheilmoitukset | ✅ |
-| Tiedot tallennetaan | ✅ |
-
----
-
-### Missä ratkaisu jäi vajaaksi?
-
-**Datan pysyvyys:** Tiedot tallennetaan selaimen local storageen, joten ne häviävät jos selain tyhjennetään tai vaihdetaan. Oikeassa tuotantokäytössä tarvittaisiin pilvipalvelu tai tiedostovienti.
-
-**Yhden käyttäjän rajoitus:** Sovellus on suunniteltu yhdelle käyttäjälle. Joukkueen kaikki pelaajat eivät näe samoja tietoja, ellei sovellusta laajenneta tietokannalla ja kirjautumisella.
-
-**Ei varmuuskopiointia:** Käyttäjällä ei ole mahdollisuutta viedä tietoja esim. CSV-tiedostona tai jakaa niitä muille.
-
----
-
-### Kokonaisarvio
-
-Sovellus ratkaisee alkuperäisen ongelman hyvin demokäytössä ja henkilökohtaisessa seurannassa. Se on teknisesti toimiva, helppokäyttöinen ja vastaa kaikkiin määriteltyihin vaatimuksiin. Jatkokehityskohteina datan pysyvyys ja monen käyttäjän tuki olisivat luontevia seuraavia askelia.
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joukkueen otteluseuranta</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #111; padding: 1rem; }
+.app { max-width: 680px; margin: 0 auto; }
+h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: #666; margin-bottom: 1.5rem; }
+h2 { font-size: 17px; font-weight: 600; margin-bottom: 1rem; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid #ddd; margin-bottom: 1.5rem; }
+.tab { padding: 8px 16px; font-size: 14px; cursor: pointer; border: none; background: none; color: #666; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color: #111; border-bottom-color: #111; font-weight: 600; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+.stat-card { background: #ececec; border-radius: 8px; padding: 1rem; text-align: center; }
+.stat-label { font-size: 12px; color: #666; margin-bottom: 4px; }
+.stat-value { font-size: 24px; font-weight: 600; }
+.win { color: #1a7a3a; }
+.draw { color: #a06000; }
+.loss { color: #b00020; }
+.card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 13px; color: #555; }
+input[type="text"], input[type="date"], input[type="number"] {
+  width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; background: #fff; color: #111;
+}
+input:focus { outline: 2px solid #333; border-color: transparent; }
+.scorer-row { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.scorer-row input[type="text"] { flex: 1; }
+.scorer-row input[type="number"] { width: 64px; }
+.remove-btn { background: none; border: none; color: #999; cursor: pointer; font-size: 18px; line-height: 1; padding: 0 4px; }
+.add-scorer-btn { font-size: 13px; color: #1a5fbf; background: none; border: none; cursor: pointer; padding: 4px 0; margin-top: 2px; }
+.btn-primary { background: #111; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; cursor: pointer; font-size: 14px; font-weight: 600; }
+.btn-primary:hover { background: #333; }
+.btn-secondary { background: none; border: 1px solid #ccc; border-radius: 8px; padding: 8px 16px; cursor: pointer; font-size: 13px; color: #111; }
+.btn-secondary:hover { background: #f0f0f0; }
+.btn-danger { background: none; border: none; cursor: pointer; font-size: 13px; color: #b00020; }
+.match-item { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+.match-result { font-size: 18px; font-weight: 700; min-width: 56px; text-align: center; }
+.match-info { flex: 1; }
+.match-opponent { font-size: 15px; font-weight: 600; }
+.match-date { font-size: 12px; color: #666; margin-top: 2px; }
+.match-scorers { font-size: 12px; color: #555; margin-top: 4px; }
+.match-actions { display: flex; gap: 8px; align-items: center; }
+.scorer-table { width: 100%; border-collapse: collapse; }
+.scorer-table td { padding: 9px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+.scorer-table tr:last-child td { border-bottom: none; }
+.scorer-rank { color: #888; width: 28px; }
+.scorer-goals { font-weight: 600; text-align: right; }
+.empty-state { color: #888; font-size: 14px; text-align: center; padding: 2.5rem 0; }
+.error-msg { color: #b00020; font-size: 13px; margin-top: 8px; }
+.goals-label { font-size: 13px; color: #555; display: block; margin-bottom: 6px; margin-top: 10px; }
+.btn-row { display: flex; gap: 8px; margin-top: 1rem; }
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+  .match-actions { flex-direction: column; gap: 4px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>Joukkueen otteluseuranta</h1>
+  <p class="subtitle">Kausi 2025</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('kausi')">Kausi</button>
+    <button class="tab" onclick="showTab('ottelu')">Kirjaa ottelu</button>
+    <button class="tab" onclick="showTab('tilastot')">Tilastot</button>
+  </div>
+
+  <!-- KAUSI -->
+  <div id="tab-kausi">
+    <div class="stats-grid" id="stats-grid"></div>
+    <h2>Ottelut</h2>
+    <div id="match-list"></div>
+  </div>
+
+  <!-- KIRJAA OTTELU -->
+  <div id="tab-ottelu" style="display:none">
+    <div class="card">
+      <h2 id="form-title">Kirjaa uusi ottelu</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Vastustaja</label>
+          <input type="text" id="f-opponent" placeholder="Joukkueen nimi">
+        </div>
+        <div class="form-group">
+          <label>Päivä</label>
+          <input type="date" id="f-date">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Omat maalit</label>
+          <input type="number" id="f-home" min="0" value="0">
+        </div>
+        <div class="form-group">
+          <label>Vastustajan maalit</label>
+          <input type="number" id="f-away" min="0" value="0">
+        </div>
+      </div>
+      <label class="goals-label">Maalintekijät</label>
+      <div id="scorers-list"></div>
+      <button class="add-scorer-btn" onclick="addScorerRow()">+ Lisää maalintekijä</button>
+      <div id="form-error" class="error-msg"></div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="saveMatch()">Tallenna</button>
+        <button class="btn-secondary" onclick="cancelEdit()">Peruuta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TILASTOT -->
+  <div id="tab-tilastot" style="display:none">
+    <h2>Maalintekijätilasto</h2>
+    <div id="scorer-stats"></div>
+  </div>
+</div>
+
+<script>
+let matches = JSON.parse(localStorage.getItem('fc-matches') || '[]');
+let editId = null;
+
+function save() {
+  localStorage.setItem('fc-matches', JSON.stringify(matches));
+}
+
+function showTab(name) {
+  ['kausi','ottelu','tilastot'].forEach((t, i) => {
+    document.getElementById('tab-' + t).style.display = t === name ? 'block' : 'none';
+    document.querySelectorAll('.tab')[i].classList.toggle('active', t === name);
+  });
+  if (name === 'kausi') renderMatches();
+  if (name === 'tilastot') renderScorers();
+}
+
+function getResult(home, away) {
+  if (home > away) return { label: home + '-' + away, cls: 'win' };
+  if (home < away) return { label: home + '-' + away, cls: 'loss' };
+  return { label: home + '-' + away, cls: 'draw' };
+}
+
+function renderMatches() {
+  const grid = document.getElementById('stats-grid');
+  const list = document.getElementById('match-list');
+  let w = 0, d = 0, l = 0, gf = 0, ga = 0;
+  matches.forEach(m => {
+    const h = parseInt(m.home), a = parseInt(m.away);
+    if (h > a) w++; else if (h < a) l++; else d++;
+    gf += h; ga += a;
+  });
+  grid.innerHTML = `
+    <div class="stat-card"><div class="stat-label">Voitot</div><div class="stat-value win">${w}</div></div>
+    <div class="stat-card"><div class="stat-label">Tasapelit</div><div class="stat-value draw">${d}</div></div>
+    <div class="stat-card"><div class="stat-label">Häviöt</div><div class="stat-value loss">${l}</div></div>
+    <div class="stat-card"><div class="stat-label">Maalit</div><div class="stat-value">${gf}-${ga}</div></div>
+    <div class="stat-card"><div class="stat-label">Ottelut</div><div class="stat-value">${matches.length}</div></div>
+  `;
+  if (matches.length === 0) {
+    list.innerHTML = '<div class="empty-state">Ei otteluita vielä. Kirjaa ensimmäinen ottelu!</div>';
+    return;
+  }
+  const sorted = [...matches].sort((a, b) => new Date(b.date) - new Date(a.date));
+  list.innerHTML = sorted.map(m => {
+    const r = getResult(parseInt(m.home), parseInt(m.away));
+    const scorers = (m.scorers || []).filter(s => s.name).map(s => s.name + (s.goals > 1 ? ' (' + s.goals + ')' : '')).join(', ');
+    return `<div class="match-item">
+      <div class="match-result ${r.cls}">${r.label}</div>
+      <div class="match-info">
+        <div class="match-opponent">vs ${m.opponent}</div>
+        <div class="match-date">${m.date ? new Date(m.date).toLocaleDateString('fi-FI') : ''}</div>
+        ${scorers ? '<div class="match-scorers">Maalit: ' + scorers + '</div>' : ''}
+      </div>
+      <div class="match-actions">
+        <button class="btn-secondary" onclick="editMatch('${m.id}')">Muokkaa</button>
+        <button class="btn-danger" onclick="deleteMatch('${m.id}')">Poista</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderScorers() {
+  const el = document.getElementById('scorer-stats');
+  const totals = {};
+  matches.forEach(m => (m.scorers || []).forEach(s => {
+    if (s.name) totals[s.name] = (totals[s.name] || 0) + parseInt(s.goals || 0);
+  }));
+  const sorted = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+  if (sorted.length === 0) {
+    el.innerHTML = '<div class="empty-state">Ei maalintekijätietoja vielä.</div>';
+    return;
+  }
+  el.innerHTML = '<div class="card"><table class="scorer-table">' +
+    sorted.map(([name, goals], i) =>
+      `<tr><td class="scorer-rank">${i + 1}.</td><td>${name}</td><td class="scorer-goals">${goals} maalia</td></tr>`
+    ).join('') + '</table></div>';
+}
+
+function addScorerRow(name = '', goals = 1) {
+  const div = document.createElement('div');
+  div.className = 'scorer-row';
+  div.innerHTML = `<input type="text" placeholder="Pelaajan nimi" value="${name}"><input type="number" min="1" value="${goals}" style="width:64px"><button class="remove-btn" onclick="this.parentElement.remove()">×</button>`;
+  document.getElementById('scorers-list').appendChild(div);
+}
+
+function saveMatch() {
+  const opponent = document.getElementById('f-opponent').value.trim();
+  const date = document.getElementById('f-date').value;
+  const home = document.getElementById('f-home').value;
+  const away = document.getElementById('f-away').value;
+  const err = document.getElementById('form-error');
+  if (!opponent) { err.textContent = 'Syötä vastustajan nimi.'; return; }
+  if (!date) { err.textContent = 'Valitse päivämäärä.'; return; }
+  err.textContent = '';
+  const scorers = [...document.querySelectorAll('#scorers-list .scorer-row')].map(row => ({
+    name: row.querySelectorAll('input')[0].value.trim(),
+    goals: parseInt(row.querySelectorAll('input')[1].value) || 1
+  })).filter(s => s.name);
+  if (editId) {
+    const idx = matches.findIndex(m => m.id === editId);
+    if (idx > -1) matches[idx] = { id: editId, opponent, date, home, away, scorers };
+    editId = null;
+  } else {
+    matches.push({ id: Date.now().toString(), opponent, date, home, away, scorers });
+  }
+  save();
+  cancelEdit();
+  showTab('kausi');
+}
+
+function editMatch(id) {
+  const m = matches.find(x => x.id === id);
+  if (!m) return;
+  editId = id;
+  document.getElementById('f-opponent').value = m.opponent;
+  document.getElementById('f-date').value = m.date;
+  document.getElementById('f-home').value = m.home;
+  document.getElementById('f-away').value = m.away;
+  document.getElementById('scorers-list').innerHTML = '';
+  (m.scorers || []).forEach(s => addScorerRow(s.name, s.goals));
+  document.getElementById('form-title').textContent = 'Muokkaa ottelua';
+  showTab('ottelu');
+}
+
+function deleteMatch(id) {
+  matches = matches.filter(m => m.id !== id);
+  save();
+  renderMatches();
+}
+
+function cancelEdit() {
+  editId = null;
+  document.getElementById('f-opponent').value = '';
+  document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('f-home').value = 0;
+  document.getElementById('f-away').value = 0;
+  document.getElementById('scorers-list').innerHTML = '';
+  document.getElementById('form-error').textContent = '';
+  document.getElementById('form-title').textContent = 'Kirjaa uusi ottelu';
+}
+
+document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+renderMatches();
+</script>
+</body>
+</html>
